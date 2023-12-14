@@ -83,9 +83,9 @@ $user1 = new User();
 
 	<section action="#" method="get" class="search">
 		<h2>Find Your Dream Job</h2>
-		<form class="form-inline" method="post" onsubmit="event.preventDefault(); filterjob();">
+		<form class="form-inline">
 			<div class="form-group mb-2">
-				<input type="text" id="title" placeholder="Keywords">
+				<input type="text" id="keywords" placeholder="Keywords">
 
 
 			</div>
@@ -95,15 +95,58 @@ $user1 = new User();
 			<div class="form-group mx-sm-3 mb-2">
 				<input type="text" id="company" placeholder="Company">
 			</div>
-			<button type="submit" class="btn btn-primary mb-2">Search</button>
-
+			<!-- <button type="submit" class="btn btn-primary mb-2">Search</button> -->
 		</form>
 	</section>
 
 	<!--------------------------  card  --------------------->
 	<section class="light">
 		<h2 class="text-center py-3">Latest Job Listings</h2>
-		<div id="results" class="results py-2">
+		<div class="container py-2">
+			<!-- <?php
+					$jobsObject = new jobs();
+					$rows = $jobsObject->read("", "", "");
+
+					foreach ($rows as $row) {
+					?>
+				<article class="postcard light green">
+					<a class="postcard__img_link" href="#">
+						<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
+					</a>
+					<div class="postcard__text t-dark">
+						<h3 class="postcard__title green"><a href="#"><?= $row['title'] ?></a></h3>
+						<div class="postcard__subtitle small">
+							<time datetime="2020-05-25 12:00:00">
+								<i class="fas fa-calendar-alt mr-2"></i><?= $row['date_created'] ?>
+						</div>
+						<div class="postcard__bar"></div>
+						<div class="postcard__preview-txt"><?= $row['description'] ?></div>
+						<ul class="postcard__tagbox">
+							<li class="tag__item"><i class="fas fa-tag mr-2"></i><?= $row['location'] ?></li>
+
+							<?php if (!$user1->is_logged()) { ?>
+								<li class="tag__item play green">
+									<a href="login.php"><i class="fas fa-play mr-2"></i>LOGIN TO APPLY</a>
+								</li>
+
+							<?php } else { ?>
+
+								<li class="tag__item play green">
+									<a href="j	ob.php?id=<?= $row['id'] ?>"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
+								</li>
+
+							<?php
+							}
+							?>
+
+						</ul>
+					</div>
+				</article>
+
+
+			<?php
+					}
+			?> -->
 
 
 
@@ -120,57 +163,7 @@ $user1 = new User();
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	function filterjob() {
-		let title = document.getElementById('title').value;
-		let company = document.getElementById('company').value;
-		let location = document.getElementById('location').value;
-		let results = document.getElementById("results");
-
-		let data = {
-			title: title
-		};
-		if (company.trim() !== '') {
-			data = {
-				company: company
-			};
-		}
-		if (location.trim() !== '') {
-			data = {
-				location: location
-			};
-		}
-
-		$.ajax({
-			method: "POST",
-			url: "actions/search.php",
-			data: data,
-			success: function(response) {
-				results.innerHTML = response;
-			},
-			error: function() {
-				alert("La recherche n'a pas fonctionné.");
-			},
-		});
-
-		return false;
-	}
-
-
-
-	(function() {
-		$.ajax({
-			method: "GET",
-			url: "actions/search.php",
-			data: {},
-			success: function(response) {
-				console.log("the response is :", response);
-
-			},
-			error: function() {
-				alert("it doesn't work");
-			},
-		});
-	})();
+	// fetch api
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

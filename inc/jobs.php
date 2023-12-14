@@ -40,16 +40,16 @@ class jobs
 
         return $rows;
     }
-    public function search($searchTerm)
-    {
-        $stmt = "SELECT * FROM jobs WHERE title LIKE '%$searchTerm%' OR company LIKE '%$searchTerm%' OR location LIKE '%$searchTerm%'";
-        $result = $this->db->executeQuery($stmt);
-        $searchResults = [];
+    // public function search($searchTerm)
+    // {
+    //     $stmt = "SELECT * FROM jobs WHERE title LIKE '%$searchTerm%' OR company LIKE '%$searchTerm%' OR location LIKE '%$searchTerm%'";
+    //     $result = $this->db->executeQuery($stmt);
+    //     $searchResults = [];
 
-        while ($row = $result->fetch_assoc()) {
-            $searchResults[] = $row;
-        }
+    //     while ($row = $result->fetch_assoc()) {
+    //         $searchResults[] = $row;
+    //     }
 
-        return $searchResults;
-    }
+    //     return $searchResults;
+    // }
 }
