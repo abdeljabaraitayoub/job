@@ -23,8 +23,6 @@ $user1 = new User();
 
 <body>
 	<header>
-
-
 		<nav class="navbar navbar-expand-md navbar-dark">
 			<div class="container">
 				<!-- Brand/logo -->
@@ -81,88 +79,96 @@ $user1 = new User();
 
 
 
-	<section action="#" method="get" class="search">
+	<section class="search">
 		<h2>Find Your Dream Job</h2>
 		<form class="form-inline">
 			<div class="form-group mb-2">
 				<input type="text" id="keywords" placeholder="Keywords">
-
-
 			</div>
 			<div class="form-group mx-sm-3 mb-2">
 				<input type="text" id="location" placeholder="Location">
 			</div>
 			<div class="form-group mx-sm-3 mb-2">
-				<input type="text" id="company" placeholder="Company">
+				<input id="company" type="text" placeholder="Company">
 			</div>
-			<!-- <button type="submit" class="btn btn-primary mb-2">Search</button> -->
+			<button class="mx-sm-3 mb-2" id="search" type="submit">search</button>
+
 		</form>
 	</section>
 
 	<!--------------------------  card  --------------------->
 	<section class="light">
 		<h2 class="text-center py-3">Latest Job Listings</h2>
-		<div class="container py-2">
-			<!-- <?php
-					$jobsObject = new jobs();
-					$rows = $jobsObject->read("", "", "");
-
-					foreach ($rows as $row) {
-					?>
-				<article class="postcard light green">
-					<a class="postcard__img_link" href="#">
-						<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
-					</a>
-					<div class="postcard__text t-dark">
-						<h3 class="postcard__title green"><a href="#"><?= $row['title'] ?></a></h3>
-						<div class="postcard__subtitle small">
-							<time datetime="2020-05-25 12:00:00">
-								<i class="fas fa-calendar-alt mr-2"></i><?= $row['date_created'] ?>
-						</div>
-						<div class="postcard__bar"></div>
-						<div class="postcard__preview-txt"><?= $row['description'] ?></div>
-						<ul class="postcard__tagbox">
-							<li class="tag__item"><i class="fas fa-tag mr-2"></i><?= $row['location'] ?></li>
-
-							<?php if (!$user1->is_logged()) { ?>
-								<li class="tag__item play green">
-									<a href="login.php"><i class="fas fa-play mr-2"></i>LOGIN TO APPLY</a>
-								</li>
-
-							<?php } else { ?>
-
-								<li class="tag__item play green">
-									<a href="j	ob.php?id=<?= $row['id'] ?>"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
-								</li>
-
-							<?php
-							}
-							?>
-
-						</ul>
-					</div>
-				</article>
-
-
-			<?php
-					}
-			?> -->
-
+		<div id="container" class="container  py-2">
 
 
 		</div>
-
 	</section>
-
-
-
-
 	<footer>
 		<p>© 2023 JobEase </p>
 	</footer>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+	const keywords = document.getElementById("keywords");
+	const locations = document.getElementById("location");
+	const company = document.getElementById("company");
+	const search = document.getElementById("search");
+	loadJobs("", "", "");
+	search.addEventListener("click", function(e) {
+		e.preventDefault();
+		loadJobs(keywords.value, locations.value, company.value);
+
+	});
+
+	function renderJob(job) {
+
+		return `<article class="postcard light green">
+					<a class="postcard__img_link" href="#">
+						<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
+					</a>
+					<div class="postcard__text t-dark">
+						<h3 class="postcard__title green"><a href="#">${job.title}</a></h3>
+						<div class="postcard__subtitle small">
+							<time datetime="2020-05-25 12:00:00">
+								<i class="fas fa-calendar-alt mr-2"></i>${job.date_created}
+						</div>
+						<div class="postcard__bar"></div>
+						<div class="postcard__preview-txt">${job.description}</div>
+						<ul class="postcard__tagbox">
+							<li class="tag__item"><i class="fas fa-tag mr-2"></i>${job.location}</li>
+							<?php if (!$user1->is_logged()) { ?>
+								<li class="tag__item play green">
+									<a href="login.php"><i class="fas fa-play mr-2"></i>LOGIN TO APPLY</a>
+								</li>
+							<?php } else { ?>
+								<li class="tag__item play green">
+									<a href="job.php?id=${job.id}"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
+								</li>
+							<?php
+							}
+							?>
+						</ul>
+					</div>
+				</article>
+		`;
+	}
+
+	function loadJobs(keywords, locations, company, ) {
+		// console.log("START");
+		fetch(`actions/jobs.php?keywords=${keywords}&locations=${locations}&company=${company}`)
+			.then((response) => response.json())
+			.then((jobs) => {
+				const container = document.getElementById("container");
+				container.innerHTML = jobs
+					.map((job) => renderJob(job))
+					.join('');
+			})
+			.catch((err) => console.error(err));
+		// console.log("END");
+	}
+
+
 	// fetch api
 </script>
 

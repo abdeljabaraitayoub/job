@@ -4,18 +4,19 @@ include_once('../inc/jobs.php');
 ?>
 
 <?php
-// Example without a database connection
-
-// Define an array of users
-$users = [
-    ["id" => 1, "name" => "John Doe", "email" => "john@example.com"],
-    ["id" => 2, "name" => "Jane Doe", "email" => "jane@example.com"]
-    // ... add more users as needed
-];
-
-// Set header to return JSON
+$job = new Jobs();
+$jobs = "";
+if (isset($_GET["keywords"]) && isset($_GET["locations"]) && isset($_GET["company"])) {
+    $keywords = $_GET["keywords"];
+    $location = $_GET["locations"];
+    $company = $_GET["company"];
+    $jobs = $job->read($keywords, $location, $company);
+}
+// $jobs = [
+//     ["id" => 1, "name" => "John Doe", "email" => "john@example.com"],
+//     ["id" => 2, "name" => "Jane Doe", "email" => "jane@example.com"]
+// ];
 header('Content-Type: application/json');
 
-// Convert array to JSON and print
-echo json_encode($users);
+echo json_encode($jobs);
 ?>
