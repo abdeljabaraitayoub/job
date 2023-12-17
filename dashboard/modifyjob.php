@@ -7,7 +7,9 @@ $user1->is_admin();
 
 ?>
 
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -85,7 +87,7 @@ $user1->is_admin();
                         </div>
                     </div>
                     <div class="inline"></div>
-                    <div class="name">Admin</div>
+                    <div class="name"> Admin</div>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">
@@ -100,114 +102,51 @@ $user1->is_admin();
                     </ul>
                 </div>
             </nav>
-            <section>
-                <table class="table align-middle">
-                    <thead class="bg-light">
-                        <tr>
-                            <th>Name</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Position</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $jobsObject = new jobs();
-                        $rows = $jobsObject->readoffres();
+            <section class="Agents px-4">
 
-                        foreach ($rows as $row) {
-                        ?>
-                            <tr class="freelancer">
-                                <td>
-                                    <?= $row['fullname']; ?>
-                                </td>
-                                <td>
-                                    <?= $row['title']; ?>
-                                </td>
-                                <td>
-                                    <?= $row['status']; ?>
-                                </td>
-                                <td>
-                                    <?= $row['location']; ?>
-                                </td>
-                                <td>
-                                    <a type=" button" class="btn btn-success" href=" ../actions/acceptoffre.php?id=<?= $row['idoffre']; ?>"">
-                                    accept
-                                </a>
-                                     <a type=" button" class=" btn btn-danger" href=" ../actions/refuseoffre.php?id=<?= $row['idoffre']; ?>">
-                                        refuse
-                                    </a>
-                                </td>
-                            </tr>
+                <form action="../actions/modjob.php?id=<?= $_GET['id'] ?>" method="post" enctype="multipart/form-data" class="mt-4">
 
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                    <div class="form-group">
+                        <label for="title">Job Title:</label>
+                        <input type="text" class="form-control" name="title" id="title" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" name="description" id="description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company:</label>
+                        <input type="text" class="form-control" name="company" id="company" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" name="location" id="location" required>
+                    </div>
+
+                    <label for="status">Status:</label>
+                    <select class="form-control" name="status" id="status" required>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+
+                    <div class="col mb-3">
+                        <label for="nameBasic" class="form-label">Select Image:</label>
+                        <input type="file" name="image" id="image" required class="form-control" placeholder="Select Image" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="createJob">Create Job</button>
+                </form>
 
             </section>
-            <!-- edit modal -->
-            <div class="modal">
-                <div class="modal-content">
-                    <form id="forms">
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">First name</label>
-                                    <input type="text" class="form-control first_name">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <label class="form-label">Last name</label>
-                                    <input type="text" class="form-control last_name">
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control email">
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="mb-4">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control title_user">
-                        </div>
-
-                        <!-- Number input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Status</label>
-                            <input type="text" class="form-control status">
-                        </div>
-
-                        <!-- Message input -->
-                        <div class=" mb-4">
-                            <label class="form-label">Position</label>
-                            <textarea class="form-control position" rows="4"></textarea>
-                        </div>
-
-                        <!-- Submit button -->
-                        <div class="d-flex w-100 justify-content-center">
-                            <p class="error text-danger"></p>
-                            <button type="submit" class="btn btn-success btn-block mb-4 me-4 save">Save Edit</button>
-                            <button class="btn btn-danger btn-block mb-4 annuler">Annuler</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="dashboard.js"></script>
-    <script src="agents.js"></script>
+    <script src="contact.js"></script>
 </body>
 
 </html>

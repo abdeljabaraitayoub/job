@@ -121,48 +121,13 @@ $user1 = new User();
 
 	});
 
-	function renderJob(job) {
-
-		return `<article class="postcard light green">
-					<a class="postcard__img_link" href="#">
-						<img class="postcard__img" src="https://picsum.photos/300/300" alt="Image Title" />
-					</a>
-					<div class="postcard__text t-dark">
-						<h3 class="postcard__title green"><a href="#">${job.title}</a></h3>
-						<div class="postcard__subtitle small">
-							<time datetime="2020-05-25 12:00:00">
-								<i class="fas fa-calendar-alt mr-2"></i>${job.date_created}
-						</div>
-						<div class="postcard__bar"></div>
-						<div class="postcard__preview-txt">${job.description}</div>
-						<ul class="postcard__tagbox">
-							<li class="tag__item"><i class="fas fa-tag mr-2"></i>${job.location}</li>
-							<?php if (!$user1->is_logged()) { ?>
-								<li class="tag__item play green">
-									<a href="login.php"><i class="fas fa-play mr-2"></i>LOGIN TO APPLY</a>
-								</li>
-							<?php } else { ?>
-								<li class="tag__item play green">
-									<a href="job.php?id=${job.id}"><i class="fas fa-play mr-2"></i>APPLY NOW</a>
-								</li>
-							<?php
-							}
-							?>
-						</ul>
-					</div>
-				</article>
-		`;
-	}
-
 	function loadJobs(keywords, locations, company, ) {
 		// console.log("START");
-		fetch(`actions/jobs.php?keywords=${keywords}&locations=${locations}&company=${company}`)
-			.then((response) => response.json())
-			.then((jobs) => {
+		fetch(`actions/jobscopy.php?keywords=${keywords}&locations=${locations}&company=${company}`)
+			.then((response) => response.text())
+			.then((data) => {
 				const container = document.getElementById("container");
-				container.innerHTML = jobs
-					.map((job) => renderJob(job))
-					.join('');
+				container.innerHTML = data
 			})
 			.catch((err) => console.error(err));
 		// console.log("END");
