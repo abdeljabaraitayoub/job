@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Models;
-require_once __DIR__ . '../../../config/Config.php';
+
+require_once  '../config/config.php';
 
 use mysqli;
 
@@ -12,14 +14,14 @@ class Database
     private function __construct()
     {
         // Your database connection details
-        
+
         $dbHost = DB_HOST;
         $dbUser = DB_USERNAME;
         $dbPass = DB_PASSWORD;
         $dbName = DB_NAME;
 
         // Create a database connection
-        $this->mysqli = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+        $this->mysqli = new mysqli("$dbHost", $dbUser, $dbPass, $dbName);
 
         // Check connection
         if ($this->mysqli->connect_error) {
@@ -41,4 +43,3 @@ class Database
         return $this->mysqli;
     }
 }
-?>

@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Form | CodingLab</title>
+    <link rel="stylesheet" href="assets/style/loginstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
+
 <body>
-    <h1><?= $data?></h1>
-    <form method="post" action="?route=creat">
-    <label for="match">Match:</label>
-    <input type="text" name="match" id="match">
-    <button type="submit">Submit</button>
-</form>
-</form>
+    <div class="container">
+        <div class="wrapper">
+            <div class="title"><span>Login Form</span></div>
+            <h1></h1>
+            <form action="" method="POST">
+                <div class="row">
+
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="email" placeholder="Email or Phone" required>
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="pass"><a href="#">Forgot password?</a></div>
+                <div class="row button">
+                    <input type="submit" value="Login">
+                </div>
+                <span style="color:red;"></span>
+                <div class="signup-link">Not a member? <a href="?route=signup">Signup now</a></div>
+            </form>
+        </div>
+    </div>
+
 </body>
+
 </html>

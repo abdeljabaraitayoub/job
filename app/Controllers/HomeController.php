@@ -1,26 +1,20 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\UserModel;
 
 class HomeController
 {
     public function index()
     {
-        $userModel = new UserModel();
-    
-        // Fetch data from the "users" table
-
-        $users = $userModel->getAllUsers();
-        // Your controller logic goes here
-        $data = 'Hello, this is the home page!';
-        $collections = ['users' => $users , "data" => $data] ;
-        require(__DIR__ .'../../../view/home.php');
-      
-
+        $user1 = new UserModel();
+        $is_logged = $user1->is_logged();
+        require(__DIR__ . '../../../view/home.php');
     }
     public function fetchMoreUsers()
     {
-       
+
         $moreUsers = [
             ['username' => 'test user A', 'email' => 'user1@example.com'],
             ['username' => 'test user B', 'email' => 'user2@example.com'],
@@ -32,4 +26,3 @@ class HomeController
         exit;
     }
 }
-?>
